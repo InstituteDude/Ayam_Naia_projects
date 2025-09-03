@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stok Ayam Naia - App</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo">🐔</span>
+        <span class="title">Stok Ayam Naia</span>
+      </div>
+      <button id="btnMenu" class="btn icon" aria-label="Menu">☰</button>
+    </header>
+
+    <nav id="sideNav" class="side-nav" aria-label="Navigasi">
+      <a href="#/dashboard" class="nav-link">Dashboard</a>
+      <a href="#/pembelian-ayam" class="nav-link">Pembelian Ayam</a>
+      <a href="#/pembelian-bahan" class="nav-link">Pembelian Bahan</a>
+      <a href="#/penjualan" class="nav-link">Penjualan</a>
+      <a href="#/supplier" class="nav-link">Supplier</a>
+      <a href="#/pengaturan" class="nav-link">Pengaturan</a>
+      <a href="#/login" class="nav-link nav-auth">Login</a>
+    </nav>
+
+    <main id="app" class="container">
+      <!-- Views will be injected here -->
+    </main>
+
+    <template id="tpl-dashboard">
+      <section>
+        <h1>Ringkasan</h1>
+        <div class="cards">
+          <div class="card"><div class="label">Total Berat Masuk (Kg)</div><div class="value" data-id="sumBeratMasuk">0</div></div>
+          <div class="card"><div class="label">Stok Tersisa (Kg)</div><div class="value" data-id="stokTersisa">0</div></div>
+          <div class="card"><div class="label">Total Pembelian Ayam</div><div class="value" data-id="sumPembelianAyam">Rp0</div></div>
+          <div class="card"><div class="label">Total Pembelian Bahan</div><div class="value" data-id="sumPembelianBahan">Rp0</div></div>
+          <div class="card"><div class="label">Total Penjualan</div><div class="value" data-id="sumPenjualan">Rp0</div></div>
+          <div class="card"><div class="label">Laba/Rugi</div><div class="value" data-id="labaRugi">Rp0</div></div>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-login">
+      <section class="auth">
+        <h1>Login</h1>
+        <form id="formLogin" class="form">
+          <label>
+            <span>Username</span>
+            <input name="username" autocomplete="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="btn primary" type="submit">Masuk</button>
+        </form>
+        <p class="muted">Default: admin / admin123</p>
+      </section>
+    </template>
+
+    <template id="tpl-supplier">
+      <section>
+        <h1>Supplier</h1>
+        <form id="formSupplier" class="form form-inline">
+          <input type="hidden" name="id" />
+          <label>
+            <span>Nama Supplier</span>
+            <input name="nama" required />
+          </label>
+          <label>
+            <span>Kontak</span>
+            <input name="kontak" />
+          </label>
+          <button class="btn primary" type="submit">Simpan</button>
+          <button class="btn" type="reset">Reset</button>
+        </form>
+        <div class="table-wrap">
+          <table class="table" data-table="supplier">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Kontak</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-pembelian-ayam">
+      <section>
+        <h1>Pembelian Ayam</h1>
+        <form id="formPembelianAyam" class="form grid">
+          <input type="hidden" name="id" />
+          <label>
+            <span>Tanggal</span>
+            <input name="tanggal" type="date" required />
+          </label>
+          <label>
+            <span>Supplier</span>
+            <select name="supplier" required></select>
+          </label>
+          <label>
+            <span>Jumlah Ekor</span>
+            <input name="jumlahEkor" type="number" min="0" step="1" required />
+          </label>
+          <label>
+            <span>Total Berat (Kg)</span>
+            <input name="totalBeratKg" type="number" min="0" step="0.01" required />
+          </label>
+          <label>
+            <span>Harga per Ekor</span>
+            <input name="hargaPerEkor" type="number" min="0" step="1" required />
+          </label>
+          <label>
+            <span>Harga per Kg</span>
+            <input name="hargaPerKg" type="number" min="0" step="1" />
+          </label>
+          <label class="full">
+            <span>Catatan</span>
+            <input name="catatan" />
+          </label>
+          <div class="actions">
+            <button class="btn primary" type="submit">Simpan</button>
+            <button class="btn" type="reset">Reset</button>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table class="table" data-table="pembelianAyam">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Supplier</th>
+                <th>Ekor</th>
+                <th>Berat (Kg)</th>
+                <th>Harga/Ekor</th>
+                <th>Harga/Kg</th>
+                <th>Total Harga</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-pembelian-bahan">
+      <section>
+        <h1>Pembelian Bahan</h1>
+        <form id="formPembelianBahan" class="form grid">
+          <input type="hidden" name="id" />
+          <label>
+            <span>Tanggal</span>
+            <input name="tanggal" type="date" required />
+          </label>
+          <label>
+            <span>Item</span>
+            <input name="item" required />
+          </label>
+          <label>
+            <span>Jumlah</span>
+            <input name="jumlah" type="number" min="0" step="0.01" required />
+          </label>
+          <label>
+            <span>Satuan</span>
+            <input name="satuan" placeholder="paket/kg/liter/dll" />
+          </label>
+          <label>
+            <span>Harga per Satuan</span>
+            <input name="hargaPerSatuan" type="number" min="0" step="1" required />
+          </label>
+          <div class="actions">
+            <button class="btn primary" type="submit">Simpan</button>
+            <button class="btn" type="reset">Reset</button>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table class="table" data-table="pembelianBahan">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Item</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+                <th>Harga/Satuan</th>
+                <th>Total</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-penjualan">
+      <section>
+        <h1>Penjualan</h1>
+        <form id="formPenjualan" class="form grid">
+          <input type="hidden" name="id" />
+          <label>
+            <span>Tanggal</span>
+            <input name="tanggal" type="date" required />
+          </label>
+          <label>
+            <span>Berat Terjual (Kg)</span>
+            <input name="beratTerjualKg" type="number" min="0" step="0.01" required />
+          </label>
+          <label>
+            <span>Harga Jual per Kg</span>
+            <input name="hargaJualPerKg" type="number" min="0" step="1" required />
+          </label>
+          <label class="full">
+            <span>Catatan</span>
+            <input name="catatan" />
+          </label>
+          <div class="actions">
+            <button class="btn primary" type="submit">Simpan</button>
+            <button class="btn" type="reset">Reset</button>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table class="table" data-table="penjualan">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Berat (Kg)</th>
+                <th>Harga/Kg</th>
+                <th>Total</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template id="tpl-pengaturan">
+      <section>
+        <h1>Pengaturan & Data</h1>
+        <div class="settings">
+          <div class="group">
+            <h3>Data</h3>
+            <button class="btn" data-action="export-json">Export JSON</button>
+            <label class="btn">
+              Import JSON
+              <input type="file" accept="application/json" data-action="import-json" hidden />
+            </label>
+            <button class="btn danger" data-action="reset-data">Reset Data</button>
+          </div>
+          <div class="group">
+            <h3>CSV</h3>
+            <p class="muted">Ekspor Excel ke CSV lalu impor per entitas:</p>
+            <label class="btn">
+              Import CSV Pembelian Ayam
+              <input type="file" accept=".csv" data-action="import-csv-ayam" hidden />
+            </label>
+            <label class="btn">
+              Import CSV Pembelian Bahan
+              <input type="file" accept=".csv" data-action="import-csv-bahan" hidden />
+            </label>
+            <label class="btn">
+              Import CSV Penjualan
+              <input type="file" accept=".csv" data-action="import-csv-penjualan" hidden />
+            </label>
+          </div>
+          <div class="group">
+            <h3>Autentikasi</h3>
+            <button class="btn" data-action="logout">Logout</button>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+  </html>
+
