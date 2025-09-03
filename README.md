@@ -30,9 +30,4 @@ Catatan Teknis
 - Autentikasi sederhana di sisi client (untuk demo). Jangan gunakan di produksi.
 - Desain mobile-first/responsif: komponen form grid dan tabel scrollable.
 
-Pengembangan Lanjutan (opsional)
-
-- Import langsung dari XLSX memakai SheetJS (perlu bundling/akses internet).
-- Multi-user + role, dan audit log.
-- Grafik penjualan dan persediaan.
-
+Demo : https://institutedude.github.io/Ayam_Naia_projects/
